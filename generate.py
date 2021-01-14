@@ -7,13 +7,13 @@ data = []
 with open("wordlist_10000.txt","r") as f:
     data = f.readlines()
 
-response = requests.get("https://www.random.org/integers/?num=1&min=1&max=5000&col=1&base=10&format=plain&rnd=new")
-word_a = data[int(response.text)]
+response = requests.get("https://www.random.org/integers/?num=2&min=1&max=5000&col=1&base=10&format=plain&rnd=new")
+response_array = re.split("\n", response.text)
 
-response = requests.get("https://www.random.org/integers/?num=1&min=5000&max=10000&col=1&base=10&format=plain&rnd=new")
-word_b = data[int(response.text)]
+del response_array[-1]
 
-result = str(word_a) + "-" + str(word_b)
+respone_unfiltered = data[int(response_array[0])] + "-" + data[int(response_array[1])]
 
-replaced = re.sub('\n', '', result)
-print(replaced)
+respone_cleaned = re.sub("\n", "", respone_unfiltered)
+
+print(respone_cleaned)
